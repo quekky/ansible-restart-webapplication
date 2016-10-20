@@ -1,0 +1,8 @@
+---
+# Default variables - inventory or playbook overrides will be respected
+
+service_name: httpd
+service_port: 80
+homepage: http://localhost:{{service_port}}
+service_retries: 12
+service_delay: 5

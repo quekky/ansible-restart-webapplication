@@ -1,0 +1,16 @@
+---
+# Restart a web application
+
+- name: restarting {{service_name}}
+  service: name="{{service_name}}" state=restarted
+- name: wait for port {{service_port}}
+  wait_for: port={{service_port}}
+- name: "wait for homepage to come up"
+  uri:
+    url: "{{homepage}}"
+    status_code: 200
+  register: result
+  until: result.status == 200
+  retries: {{service_retries}}
+  delay: {{service_delay}}
+    
