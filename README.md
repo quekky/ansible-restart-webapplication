@@ -30,13 +30,13 @@ Restart the default web application (httpd):
 
     - hosts: servers
       roles:
-        - quekky.restart_webapplication
+        - quekky.restart-webapplication
 
 Restart the tomcat, which is running on port 8080, then test the page http://localhost:8080/test.jsp:
 
     - hosts: servers
       roles:
-         - quekky.restart_webapplication
+         - role: quekky.restart-webapplication
 		   service_name: tomcat8
 		   service_port: 8080
 		   homepage: http://localhost:8080/test.jsp
