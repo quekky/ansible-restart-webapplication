@@ -1,5 +1,5 @@
-Role Name
-=========
+restart-webapplication
+======================
 
 Generic role to restart a web application. It then waits for the port, and test a page.
 
