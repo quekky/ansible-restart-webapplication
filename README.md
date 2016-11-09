@@ -17,6 +17,7 @@ The variables that can be passed to this role and a brief description about them
 	service_port: 80
 	homepage: http://localhost:{{service_port}}
 
+Pass blank to homepage if no checking is required.
 
 Dependencies
 ------------
