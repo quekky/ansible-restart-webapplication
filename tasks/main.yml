@@ -13,5 +13,5 @@
   until: result.status == 200
   retries: "{{service_retries}}"
   delay: "{{service_delay}}"
-  when: homepage is defined
+  when: homepage|default(none) != none
     
