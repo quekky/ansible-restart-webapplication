@@ -13,11 +13,29 @@ Role Variables
 
 The variables that can be passed to this role and a brief description about them are as follows.
 
+	# service to restart
 	service_name: httpd
-	service_port: 80
-	homepage: http://localhost:{{service_port}}
 
-Pass blank to homepage if no checking is required.
+	# process name to wait
+	process_name:
+	# if kill_process=true, will kill all the processes
+	kill_process: false
+	# check the process recursively till it die or the task has been retried for 12 times with a delay of 5 seconds
+	process_retries: 12
+	process_delay: 5
+
+	# which port to check
+	service_port: 80
+	# how long to wait for service_port to be up
+	service_port_delay: 60
+
+	# which page to check, pass blank to homepage if no checking is required.
+	homepage: http://localhost:{{service_port}}
+	# check the homepage recursively till it return status 200 or the task has been retried for 12 times with a delay of 5 seconds
+	homepage_retries: 12
+	homepage_delay: 5
+
+
 
 Dependencies
 ------------

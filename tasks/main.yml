@@ -1,17 +1,32 @@
 ---
 # Restart a web application
 
-- name: restarting {{service_name}}
-  service: name="{{service_name}}" state=restarted
+- name: stopping service {{service_name}}
+  service: name="{{service_name}}" state=stopped
+- name: wait for process {{process_name}} to die
+  shell: /usr/sbin/pidof {{process_name}}
+  ignore_errors: yes
+  register: result
+  until: result.stdout == ""
+  retries: "{{process_retries}}"
+  delay: "{{process_delay}}"
+  when: process_name|default(none) != none
+- name: kill process {{process_name}}
+  shell: /usr/bin/pkill -9 {{process_name}}
+  ignore_errors: yes
+  when: process_name|default(none) != none and kill_process
+- name: starting service {{service_name}}
+  service: name="{{service_name}}" state=started
 - name: wait for port {{service_port}}
-  wait_for: port={{service_port}}
+  wait_for: port={{service_port}} delay={{service_port_delay}}
+  when: service_port|default(none) != none
 - name: "wait for homepage to come up"
   uri:
     url: "{{homepage}}"
     status_code: 200
   register: result
   until: result.status == 200
-  retries: "{{service_retries}}"
-  delay: "{{service_delay}}"
+  retries: "{{homepage_retries}}"
+  delay: "{{homepage_delay}}"
   when: homepage|default(none) != none
     
