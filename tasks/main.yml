@@ -18,7 +18,7 @@
 - name: starting service {{service_name}}
   service: name="{{service_name}}" state=started
 - name: wait for port {{service_port}}
-  wait_for: port={{service_port}} timeout={{service_port_delay}}
+  wait_for: port={{service_port}} timeout={{service_port_timeout}}
   when: service_port|default(none) != none
 - name: "wait for homepage to come up"
   uri:

@@ -27,7 +27,7 @@ The variables that can be passed to this role and a brief description about them
 	# which port to check
 	service_port: 80
 	# how long to wait for service_port to be up
-	service_port_delay: 60
+	service_port_timeout: 60
 
 	# which page to check, pass blank to homepage if no checking is required.
 	homepage: http://localhost:{{service_port}}
