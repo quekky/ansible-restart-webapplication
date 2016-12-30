@@ -4,7 +4,7 @@
 - name: stopping service {{service_name}}
   service: name="{{service_name}}" state=stopped
 - name: wait for process {{process_name}} to die
-  shell: /usr/sbin/pidof {{process_name}}
+  shell: /sbin/pidof {{process_name}}
   ignore_errors: yes
   register: result
   until: result.stdout == ""
@@ -18,7 +18,7 @@
 - name: starting service {{service_name}}
   service: name="{{service_name}}" state=started
 - name: wait for port {{service_port}}
-  wait_for: port={{service_port}} delay={{service_port_delay}}
+  wait_for: port={{service_port}} timeout={{service_port_delay}}
   when: service_port|default(none) != none
 - name: "wait for homepage to come up"
   uri:
